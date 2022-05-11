@@ -3,12 +3,13 @@ FROM python:3.9
 
 WORKDIR /realtime-tunes
 
-COPY requirements.txt .
+COPY . .
 
-RUN pip install -r requirements.txt
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    software-properties-common 
 
-COPY realtime-tunes ./realtime-tunes/
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 
-ENV PYTHONPATH "${PYTHONPATH}:/realtime_tunes"
-CMD [ "python", "./realtime_tunes/app.py" ]
+CMD [ "python3", "./realtime_tunes/app.py" ]
